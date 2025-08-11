@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brownielicious</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f0e6;
+      color: #4b2e05;
+      margin: 0; padding: 0;
+    }
+    header {
+      background-color: #7b4a12;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      font-size: 2.5em;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    .btn-container {
+      text-align: center;
+      margin: 20px 0;
+    }
+    button {
+      background-color: #a55c11;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1.1em;
+      color: white;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #87450e;
+    }
+    main {
+      max-width: 700px;
+      margin: 0 auto 50px;
+      padding: 0 20px;
+    }
+    section.recipe {
+      background-color: #fdf6e3;
+      border-radius: 10px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+    section.recipe h2 {
+      margin-top: 0;
+      color: #7b4a12;
+    }
+    ul.ingredients {
+      margin-top: 5px;
+      margin-bottom: 15px;
+      padding-left: 20px;
+    }
+    ol.steps {
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>Brownielicious</header>
+
+<div class="btn-container">
+  <button onclick="document.getElementById('all-recipes').scrollIntoView({behavior:'smooth'})">
+    View All Recipes
+  </button>
+</div>
+
+<main>
+  <section id="all-recipes">
+
+    <section class="recipe" id="classic-brownie">
+      <h2>Classic Fudgy Brownie</h2>
+      <h4>Ingredients:</h4>
+      <ul class="ingredients">
+        <li>1/2 cup unsalted butter</li>
+        <li>1 cup sugar</li>
+        <li>2 large eggs</li>
+        <li>1/3 cup cocoa powder</li>
+        <li>1/2 cup flour</li>
+        <li>1/4 tsp salt</li>
+        <li>1 tsp vanilla extract</li>
+      </ul>
+      <h4>Steps:</h4>
+      <ol class="steps">
+        <li>Preheat oven to 350°F (175°C). Grease a 9x9 inch pan.</li>
+        <li>Melt butter and mix with sugar, eggs, and vanilla.</li>
+        <li>Stir in cocoa, flour, and salt until combined.</li>
+        <li>Pour batter into the pan and bake for 20-25 minutes.</li>
+        <li>Cool before cutting into squares.</li>
+      </ol>
+    </section>
+
+    <section class="recipe" id="walnut-brownie">
+      <h2>Walnut Crunch Brownie</h2>
+      <h4>Ingredients:</h4>
+      <ul class="ingredients">
+        <li>1/2 cup butter</li>
+        <li>1 cup sugar</li>
+        <li>2 eggs</li>
+        <li>1/3 cup cocoa powder</li>
+        <li>1/2 cup flour</li>
+        <li>1/4 tsp salt</li>
+        <li>1 tsp vanilla extract</li>
+        <li>1/2 cup chopped walnuts</li>
+      </ul>
+      <h4>Steps:</h4>
+      <ol class="steps">
+        <li>Preheat oven to 350°F (175°C). Grease a pan.</li>
+        <li>Melt butter, mix with sugar, eggs, and vanilla.</li>
+        <li>Add cocoa, flour, salt, then fold in walnuts.</li>
+        <li>Bake for 22-27 minutes.</li>
+        <li>Let cool, then slice and serve.</li>
+      </ol>
+    </section>
+
+    <section class="recipe" id="peanut-butter-brownie">
+      <h2>Peanut Butter Swirl Brownie</h2>
+      <h4>Ingredients:</h4>
+      <ul class="ingredients">
+        <li>1/2 cup butter</li>
+        <li>1 cup sugar</li>
+        <li>2 eggs</li>
+        <li>1/3 cup cocoa powder</li>
+        <li>1/2 cup flour</li>
+        <li>1/4 tsp salt</li>
+        <li>1 tsp vanilla extract</li>
+        <li>1/3 cup peanut butter</li>
+      </ul>
+      <h4>Steps:</h4>
+      <ol class="steps">
+        <li>Preheat oven to 350°F (175°C). Grease a pan.</li>
+        <li>Melt butter, mix with sugar, eggs, and vanilla.</li>
+         <li>Add cocoa, flour, and salt and stir well.</li>
+        <li>Pour half batter into pan. Drop peanut butter by spoonfuls and swirl.</li>
+        <li>Pour remaining batter on top and bake 25 minutes.</li>
+      </ol>
+    </section>
+
+    <section class="recipe" id="mint-brownie">
+      <h2>Mint Chocolate Brownie</h2>
+      <h4>Ingredients:</h4>
+      <ul class="ingredients">
+        <li>1/2 cup butter</li>
+        <li>1 cup sugar</li>
+        <li>2 eggs</li>
+        <li>1/3 cup cocoa powder</li>
+        <li>1/2 cup flour</li>
+        <li>1/4 tsp salt</li>
+        <li>1 tsp vanilla extract</li>
+        <li>1/2 tsp peppermint extract</li>
+      </ul>
+      <h4>Steps:</h4>
+      <ol class="steps">
+        <li>Preheat oven to 350°F (175°C). Grease pan.</li>
+        <li>Melt butter, mix with sugar, eggs, vanilla, and peppermint extract.</li>
+        <li>Add cocoa, flour, and salt, mix well.</li>
+        <li>Bake for 20-25 minutes.</li>
+        <li>Cool and enjoy minty brownies!</li>
+      </ol>
+    </section>
+
+    <section class="recipe" id="blondie-brownie">
+      <h2>Blondie Brownie</h2>
+      <h4>Ingredients:</h4>
+      <ul class="ingredients">
+        <li>1/2 cup butter</li>
+        <li>1 cup brown sugar</li>
+        <li>2 eggs</li>
+        <li>1 cup flour</li>
+        <li>1/2 tsp baking powder</li>
+        <li>1/4 tsp salt</li>
+        <li>1 tsp vanilla extract</li>
+        <li>1/2 cup white chocolate chips</li>
+      </ul>
+      <h4>Steps:</h4>
+      <ol class="steps">
+        <li>Preheat oven to 350°F (175°C). Grease pan.</li>
+        <li>Melt butter, mix with brown sugar, eggs, and vanilla.</li>
+        <li>Add flour, baking powder, and salt; mix well.</li>
+        <li>Stir in white chocolate chips.</li>
+        <li>Bake 20-25 minutes. Cool and cut.</li>
+      </ol>
+    </section>
+
+  </section>
+</main>
+
+</body>
+</html>
