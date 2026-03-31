@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Profile - Brownielicious</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" type="image/png" href="Brownies.png" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              cream: "#FAF3E0",
+              cocoa: "#5A3E36",
+              caramel: "#C97B4C",
+              dark: "#2E1E1A",
+              rose: "#E9B7B9",
+            },
+            fontFamily: {
+              heading: ["Playfair Display", "serif"],
+              body: ["Nunito", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-cream min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-cream shadow-md">
+      <nav
+        class="container mx-auto px-4 py-4 flex items-center justify-between"
+      >
+        <a href="index.html" class="text-3xl font-bold text-cocoa"
+          >Brownielicious</a
+        >
+        <div class="hidden md:flex items-center space-x-8">
+          <a
+            href="index.html"
+            class="text-cocoa hover:text-caramel transition font-semibold"
+            >Home</a
+          >
+          <a
+            href="recipes.html"
+            class="text-cocoa hover:text-caramel transition font-semibold"
+            >Recipes</a
+          >
+          <a
+            href="about.html"
+            class="text-cocoa hover:text-caramel transition font-semibold"
+            >About</a
+          >
+          <a
+            href="contact.html"
+            class="text-cocoa hover:text-caramel transition font-semibold"
+            >Contact</a
+          >
+        </div>
+        <div class="flex items-center space-x-4">
+          <a
+            href="profile.html"
+            class="hidden md:inline-block bg-cocoa text-white px-4 py-2 rounded-full font-semibold transition duration-300"
+          >
+            My Profile
+          </a>
+          <button
+            onclick="logout()"
+            class="hidden md:inline-block text-cocoa hover:text-caramel font-semibold"
+          >
+            Logout
+          </button>
+        </div>
+        <button id="mobile-menu-btn" class="md:hidden text-cocoa">
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
+          </svg>
+        </button>
+      </nav>
+      <div id="mobile-menu" class="hidden md:hidden bg-cream py-4 px-4">
+        <a href="index.html" class="block py-2 text-cocoa hover:text-caramel"
+          >Home</a
+        >
+        <a href="recipes.html" class="block py-2 text-cocoa hover:text-caramel"
+          >Recipes</a
+        >
+        <a href="about.html" class="block py-2 text-cocoa hover:text-caramel"
+          >About</a
+        >
+        <a href="contact.html" class="block py-2 text-cocoa hover:text-caramel"
+          >Contact</a
+        >
+        <a
+          href="profile.html"
+          class="block py-2 text-cocoa hover:text-caramel font-semibold"
+          >My Profile</a
+        >
+        <button
+          onclick="logout()"
+          class="block py-2 text-cocoa hover:text-caramel font-semibold w-full text-left"
+        >
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <!-- Profile Section -->
+    <section class="py-12 px-4">
+      <div class="container mx-auto max-w-4xl">
+        <!-- User Info Card -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+          <div class="flex items-center space-x-6">
+            <div
+              class="w-24 h-24 bg-caramel rounded-full flex items-center justify-center text-white text-4xl font-bold"
+            >
+              <span id="user-initials">?</span>
+            </div>
+            <div>
+              <h1 id="user-name" class="text-3xl font-bold text-cocoa">
+                Loading...
+              </h1>
+              <p id="user-email" class="text-gray-600">...</p>
+              <p class="text-sm text-gray-500 mt-1">
+                Member since: <span id="member-since">...</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Saved Recipes Section -->
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+          <h2 class="text-2xl font-bold text-cocoa mb-6">My Saved Recipes</h2>
+
+          <!-- Tabs -->
+          <div class="flex border-b border-gray-200 mb-6">
+            <button
+              id="saved-tab"
+              class="px-6 py-3 text-caramel border-b-2 border-caramel font-semibold"
+              onclick="switchView('saved')"
+            >
+              Saved Recipes
+            </button>
+            <button
+              id="settings-tab"
+              class="px-6 py-3 text-gray-500 hover:text-cocoa font-semibold"
+              onclick="switchView('settings')"
+            >
+              Account Settings
+            </button>
+          </div>
+
+          <!-- Saved Recipes View -->
+          <div id="saved-view">
+            <div
+              id="saved-recipes-grid"
+              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              <!-- Recipes will be loaded here -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-saved" class="text-center py-12 hidden">
+              <svg
+                class="w-16 h-16 mx-auto text-gray-300 mb-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                ></path>
+              </svg>
+              <h3 class="text-xl font-semibold text-cocoa mb-2">
+                No saved recipes yet
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Start saving your favorite brownie recipes!
+              </p>
+              <a
+                href="recipes.html"
+                class="inline-block bg-caramel hover:bg-cocoa text-white px-6 py-3 rounded-full font-semibold transition duration-300"
+              >
+                Browse Recipes
+              </a>
+            </div>
+          </div>
+
+          <!-- Settings View -->
+          <div id="settings-view" class="hidden">
+            <form id="profile-form" class="space-y-6">
+              <div>
+                <label
+                  for="profile-name"
+                  class="block text-sm font-semibold text-cocoa mb-2"
+                  >Full Name</label
+                >
+                <input
+                  type="text"
+                  id="profile-name"
+                  class="w-full px-4 py-3 rounded-lg border-2 border-cocoa focus:outline-none focus:border-caramel bg-cream"
+                />
+              </div>
+
+              <div>
+                <label
+                  for="profile-email"
+                  class="block text-sm font-semibold text-cocoa mb-2"
+                  >Email Address</label
+                >
+                <input
+                  type="email"
+                  id="profile-email"
+                  disabled
+                  class="w-full px-4 py-3 rounded-lg border-2 border-gray-300 bg-gray-100 text-gray-500"
+                />
+              </div>
+
+              <button
+                type="submit"
+                class="bg-caramel hover:bg-cocoa text-white px-6 py-3 rounded-lg font-semibold transition duration-300"
+              >
+                Update Profile
+              </button>
+            </form>
+
+            <hr class="my-8" />
+
+            <h3 class="text-xl font-bold text-cocoa mb-4">Change Password</h3>
+            <form id="password-form" class="space-y-4">
+              <div>
+                <label
+                  for="new-password"
+                  class="block text-sm font-semibold text-cocoa mb-2"
+                  >New Password</label
+                >
+                <input
+                  type="password"
+                  id="new-password"
+                  class="w-full px-4 py-3 rounded-lg border-2 border-cocoa focus:outline-none focus:border-caramel bg-cream"
+                />
+              </div>
+              <button
+                type="submit"
+                class="bg-cocoa hover:bg-dark text-white px-6 py-3 rounded-lg font-semibold transition duration-300"
+              >
+                Change Password
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-8 mt-12">
+      <div class="container mx-auto px-4 text-center">
+        <p class="text-gray-400">
+          &copy; 2024 Brownielicious. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <script src="js/supabase.js"></script>
+    <script>
+      // Check if user is logged in
+      async function checkAuth() {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+
+        if (!user) {
+          window.location.href = "auth.html";
+          return null;
+        }
+
+        // Get user profile
+        const { data: profile } = await supabase
+          .from("users")
+          .select("*")
+          .eq("id", user.id)
+          .single();
+
+        return (
+          profile || {
+            id: user.id,
+            email: user.email,
+            name: user.user_metadata?.name || "User",
+          }
+        );
+      }
+
+      // Load user data
+      async function loadUserData() {
+        const user = await checkAuth();
+        if (!user) return;
+
+        // Update UI
+        document.getElementById("user-name").textContent = user.name || "User";
+        document.getElementById("user-email").textContent = user.email;
+        document.getElementById("user-initials").textContent = getInitials(
+          user.name || "U"
+        );
+
+        if (user.created_at) {
+          const date = new Date(user.created_at);
+          document.getElementById("member-since").textContent =
+            date.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+            });
+        }
+
+        // Load form fields
+        document.getElementById("profile-name").value = user.name || "";
+        document.getElementById("profile-email").value = user.email || "";
+
+        // Load saved recipes
+        loadSavedRecipes();
+      }
+
+      // Get user initials
+      function getInitials(name) {
+        return name
+          .split(" ")
+          .map((n) => n[0])
+          .join("")
+          .toUpperCase()
+          .slice(0, 2);
+      }
+
+      // Load saved recipes
+      async function loadSavedRecipes() {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        if (!user) return;
+
+        const { data: savedRecipes, error } = await supabase
+          .from("saved_recipes")
+          .select("recipe_id, recipe_data, created_at")
+          .eq("user_id", user.id)
+          .order("created_at", { ascending: false });
+
+        const container = document.getElementById("saved-recipes-grid");
+        const emptyState = document.getElementById("empty-saved");
+
+        if (!savedRecipes || savedRecipes.length === 0) {
+          container.innerHTML = "";
+          emptyState.classList.remove("hidden");
+          return;
+        }
+
+        emptyState.classList.add("hidden");
+
+        container.innerHTML = savedRecipes
+          .map((saved) => {
+            const recipe = saved.recipe_data || {
+              id: saved.recipe_id,
+              title: "Recipe",
+              description: "",
+              image: "",
+              prepTime: "",
+              servings: "",
+            };
+            return `
+              <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition duration-300">
+                <div class="relative">
+                  <img src="${
+                    recipe.image ||
+                    "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&q=80"
+                  }" alt="${recipe.title}" class="w-full h-40 object-cover">
+                  <button
+                    onclick="removeSavedRecipe(${saved.recipe_id})"
+                    class="absolute top-2 right-2 bg-white rounded-full p-2 shadow-md hover:bg-red-50 text-red-500"
+                    title="Remove from saved"
+                  >
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                  </button>
+                </div>
+                <div class="p-4">
+                  <h3 class="font-bold text-cocoa mb-1">${recipe.title}</h3>
+                  <div class="flex items-center text-gray-500 text-sm mb-2">
+                    <span class="mr-3">⏱️ ${recipe.prepTime || "N/A"}</span>
+                    <span>👥 ${recipe.servings || "N/A"}</span>
+                  </div>
+                  <p class="text-gray-600 text-sm line-clamp-2 mb-3">${
+                    recipe.description || ""
+                  }</p>
+                  <a href="recipe.html?id=${
+                    recipe.id
+                  }" class="block text-center bg-cocoa hover:bg-caramel text-white py-2 rounded-lg font-semibold text-sm transition duration-300">View Recipe</a>
+                </div>
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      // Remove saved recipe
+      async function removeSavedRecipe(recipeId) {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        if (!user) return;
+
+        const { error } = await supabase
+          .from("saved_recipes")
+          .delete()
+          .eq("user_id", user.id)
+          .eq("recipe_id", recipeId);
+
+        if (!error) {
+          loadSavedRecipes();
+        }
+      }
+
+      // Switch between views
+      function switchView(view) {
+        const savedTab = document.getElementById("saved-tab");
+        const settingsTab = document.getElementById("settings-tab");
+        const savedView = document.getElementById("saved-view");
+        const settingsView = document.getElementById("settings-view");
+
+        if (view === "saved") {
+          savedTab.classList.add(
+            "text-caramel",
+            "border-b-2",
+            "border-caramel"
+          );
+          savedTab.classList.remove("text-gray-500");
+          settingsTab.classList.remove(
+            "text-caramel",
+            "border-b-2",
+            "border-caramel"
+          );
+          settingsTab.classList.add("text-gray-500");
+          savedView.classList.remove("hidden");
+          settingsView.classList.add("hidden");
+        } else {
+          settingsTab.classList.add(
+            "text-caramel",
+            "border-b-2",
+            "border-caramel"
+          );
+          settingsTab.classList.remove("text-gray-500");
+          savedTab.classList.remove(
+            "text-caramel",
+            "border-b-2",
+            "border-caramel"
+          );
+          savedTab.classList.add("text-gray-500");
+          settingsView.classList.remove("hidden");
+          savedView.classList.add("hidden");
+        }
+      }
+
+      // Update profile
+      document
+        .getElementById("profile-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const name = document.getElementById("profile-name").value.trim();
+
+          const {
+            data: { user },
+          } = await supabase.auth.getUser();
+
+          if (!user) return;
+
+          const { error } = await supabase
+            .from("users")
+            .update({ name })
+            .eq("id", user.id);
+
+          if (!error) {
+            document.getElementById("user-name").textContent = name;
+            document.getElementById("user-initials").textContent =
+              getInitials(name);
+            alert("Profile updated successfully!");
+          }
+        });
+
+      // Change password
+      document
+        .getElementById("password-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const newPassword = document.getElementById("new-password").value;
+
+          if (newPassword.length < 8) {
+            alert("Password must be at least 8 characters");
+            return;
+          }
+
+          const { error } = await supabase.auth.updateUser({
+            password: newPassword,
+          });
+
+          if (!error) {
+            alert("Password changed successfully!");
+            document.getElementById("new-password").value = "";
+          } else {
+            alert("Error: " + error.message);
+          }
+        });
+
+      // Logout
+      async function logout() {
+        await supabase.auth.signOut();
+        window.location.href = "index.html";
+      }
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", () => {
+        loadUserData();
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        if (mobileMenuBtn && mobileMenu) {
+          mobileMenuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

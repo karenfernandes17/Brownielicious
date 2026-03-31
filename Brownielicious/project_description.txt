@@ -1,0 +1,34 @@
+Project Name: Brownielicious
+Tagline: Simple. Decadent. Brownies.
+
+Overview:
+Brownielicious is a modern, premium web application dedicated to the art of brownie baking. It serves as a comprehensive platform for bakers of all levels to discover, save, and enjoy a curated collection of brownie recipes.
+
+Key Features:
+- Recipe Discovery: Browse and search through a wide variety of brownie recipes.
+- Categorization: Recipes are organized into "Classic Brownies," "Modern Twists," and "Vegan / Healthy" options.
+- User Accounts: Secure login and signup powered by Supabase.
+- Recipe Saving: Authenticated users can save their favorite recipes to their personal profile for easy access.
+- Interactive UI: A responsive, visually stunning design using Tailwind CSS with a warm "cream and cocoa" color palette.
+- Detailed Recipe Pages: Each recipe includes ingredients, step-by-step instructions, prep time, and serving sizes.
+- Community Features: Newsletter subscription for exclusive recipes and baking tips.
+
+Technical Stack:
+- Frontend: HTML5, JavaScript (ES6+), Vanilla CSS, and Tailwind CSS.
+- Backend/Database: Supabase (PostgreSQL) for user data and recipe management.
+- Styling: Custom design system with Google Fonts (Playfair Display and Nunito).
+- Media: High-quality imagery from Unsplash.
+
+Main Pages:
+- index.html: Home page with featured recipes and categories.
+- recipes.html: Full library of brownie recipes with filtering capabilities.
+- recipe.html: Individual recipe details and instructions.
+- auth.html: Unified login and registration gateway.
+- profile.html: User dashboard for managing saved recipes and personal information.
+- about.html: The story and mission behind Brownielicious.
+- contact.html: Support and inquiry form.
+
+Modules Without Functions:
+The following files exist in the project but contain no functions or implementation logic:
+- js/auth: 0-byte file, likely a placeholder or incorrectly created.
+- js/supabase: 0-byte file, likely a placeholder or incorrectly created.
